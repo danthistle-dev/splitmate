@@ -1,0 +1,12 @@
+[{
+  "name": "Unify 2020",
+  "members": ["Dan", "Sam", "Jesse", "Cooke"],
+  "expenses": [
+    {
+      "name": "Car rental",
+      "cost": 300,
+      "payer": "Dan",
+      "users": ["Sam", "Jesse"]
+    }
+  ]
+}]
