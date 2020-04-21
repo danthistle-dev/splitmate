@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import Header from './Header';
 import data from '../test.json';
 
-const Trips = ({ navigation }) => {
+const Home = ({ navigation }) => {
   return(
     <View style={{height: '100%'}}>
       <Header title="Splitmate" />
@@ -12,7 +12,13 @@ const Trips = ({ navigation }) => {
       <Divider />
       {data ? (
         <List.Section>
-          {data.map((trip, i) => <List.Item key={i} title={trip.name} onPress={() => console.log('Pressed')} />)}
+          {data.map((trip, i) => (
+            <List.Item 
+              key={i} 
+              title={trip.name} 
+              left={props => <List.Icon {...props} icon="airplane" />}
+              onPress={() => navigation.navigate('Trip', data[i])}
+            />))}
         </List.Section>         
       ) : (
         <Text>You don't have any trips yet! Add a trip to get started.</Text>
@@ -46,4 +52,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Trips;
+export default Home;
