@@ -7,6 +7,94 @@
       "cost": 300,
       "payer": "Dan",
       "users": ["Sam", "Jesse"]
+    },
+    {
+      "name": "Beer",
+      "cost": 60,
+      "payer": "Sam",
+      "users": ["Sam", "Jesse"]
+    },
+    {
+      "name": "Hostel",
+      "cost": 120,
+      "payer": "Jesse",
+      "users": ["Sam", "Jesse"]
+    },
+    {
+      "name": "Tent",
+      "cost": 200,
+      "payer": "Dan",
+      "users": ["Sam", "Jesse"]
+    }
+  ],
+  "splits": [
+    {
+      "member": "Dan",
+      "owes": [
+        {
+          "member": "Sam",
+          "amount": 100
+        },
+        {
+          "member": "Jesse",
+          "amount": 100
+        },
+        {
+          "member": "Cooke",
+          "amount": 100
+        }
+      ]
+    },
+    {
+      "member": "Sam",
+      "owes": [
+        {
+          "member": "Dan",
+          "amount": 100
+        },
+        {
+          "member": "Jesse",
+          "amount": 100
+        },
+        {
+          "member": "Cooke",
+          "amount": 100
+        }
+      ]
+    },
+    {
+      "member": "Jesse",
+      "owes": [
+        {
+          "member": "Sam",
+          "amount": 100
+        },
+        {
+          "member": "Dan",
+          "amount": 100
+        },
+        {
+          "member": "Cooke",
+          "amount": 100
+        }
+      ]
+    },
+    {
+      "member": "Cooke",
+      "owes": [
+        {
+          "member": "Sam",
+          "amount": 100
+        },
+        {
+          "member": "Jesse",
+          "amount": 100
+        },
+        {
+          "member": "Dan",
+          "amount": 100
+        }
+      ]
     }
   ]
 }]
