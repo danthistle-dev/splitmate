@@ -1,23 +1,28 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
 import { List, Title, Divider, FAB, Text } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import Header from './Header';
 import data from '../test.json';
 
 const Home = ({ navigation }) => {
+  const trips = useSelector(state => state.trips);
+  console.log(Object.keys(trips.byId))
+
   return(
     <View style={{height: '100%'}}>
       <Header title="Splitmate" />
       <Title style={styles.title}>Your trips</Title>
       <Divider />
-      {data ? (
+      {trips.allIds !== [] ? (
         <List.Section>
-          {data.map((trip, i) => (
+          {Object.keys(trips.byId).map((id, i) => (
             <List.Item 
               key={i} 
-              title={trip.name} 
+              title={trips.byId[id].name} 
               left={props => <List.Icon {...props} icon="airplane" />}
-              onPress={() => navigation.navigate('Trip', data[i])}
+              onPress={() => navigation.navigate('Trip', trips.byId[id])}
             />))}
         </List.Section>         
       ) : (

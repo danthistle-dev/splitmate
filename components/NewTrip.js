@@ -1,7 +1,12 @@
 import React, { useState, useReducer } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { createTrip } from '../actions';
+
 import Header from './Header';
 import { SafeAreaView, ScrollView, View, StyleSheet } from 'react-native';
 import { FAB, TextInput, List, IconButton } from 'react-native-paper';
+import uuid from 'random-uuid-v4';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -23,6 +28,7 @@ const reducer = (state, action) => {
 }
 
 const NewTrip = ({ navigation }) => {
+  const storeDispatch = useDispatch();
   const [name, setName] = useState('');
   const [members, dispatch] = useReducer(reducer, []);
 
@@ -64,7 +70,10 @@ const NewTrip = ({ navigation }) => {
         icon="check"
         style={styles.save}
         disabled={name === '' || members.length < 1 || members.includes('') ? true : false}
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => {
+          storeDispatch(createTrip({ id: uuid(), name, members}));
+          navigation.navigate('Home');
+        }}
       />
       <FAB 
         label="Cancel"

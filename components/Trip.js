@@ -1,9 +1,14 @@
 import React from 'react';
+
+import { useSelector } from 'react-redux';
+
 import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
 import { Divider, Title, List, Text } from 'react-native-paper';
 import Header from './Header';
 
 const Trip = ({ route, navigation }) => {
+
+
   return(
     <View>
       <Header title={route.params.name} back nav={navigation} />
