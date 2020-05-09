@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import initOwes from '../actions';
 
 import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
 import { Divider, Title, List, Text } from 'react-native-paper';
 import Header from './Header';
 
 const Trip = ({ route, navigation }) => {
-
+  console.log(route.params)
+  const dispatch = useDispatch();
+  const users = useSelector(state => state.users);
+  console.log(users.byId[route.params.members[0]].owes);
 
   return(
     <View>
@@ -19,7 +23,7 @@ const Trip = ({ route, navigation }) => {
           <List.Section>
             {route.params.members.map((member, i) => {
               return(
-                <List.Accordion title={member} key={i}>
+                <List.Accordion title={users.byId[member].name} key={i}>
                   {route.params.expenses
                     .filter(exp => exp.payer === member)
                     .map((exp, i) => {
@@ -41,19 +45,18 @@ const Trip = ({ route, navigation }) => {
           <List.Section>
             {route.params.members.map((member, i) => {
               return(
-                <List.Accordion title={member} key={i}>
-                  {route.params.splits
-                    .filter(split => split.member === member)
-                    .map((split, i) => split.owes
-                    .map((owe, i) => {
+                <List.Accordion title={users.byId[member].name} key={i}>
+                  {console.log(Object.keys(users.byId[member].owes))}
+                  {Object.keys(users.byId[member].owes)
+                    .map((id, i) => {
                       return <List.Item
                         key={i}
                         style={styles.listItem}
-                        title={owe.member} 
+                        title={`owes ${users.byId[id].name}`} 
                         left={props => <List.Icon {...props} icon="subdirectory-arrow-right" />}
-                        right={() => <Text style={{ alignSelf: 'center', paddingRight: '10%' }}>${owe.amount}</Text>}
+                        right={() => <Text style={{ alignSelf: 'center', paddingRight: '10%' }}>${users.byId[member].owes[id]}</Text>}
                       />
-                    }))}
+                  })}
                 </List.Accordion>
               );
             })}

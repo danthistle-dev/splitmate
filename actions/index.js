@@ -3,6 +3,11 @@ export const addUser = payload => ({
   payload
 })
 
+export const initOwes = payload => ({
+  type: 'INIT_OWES',
+  payload
+})
+
 export const addExpense = payload => ({
   type: 'ADD_EXPENSE',
   payload

@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from 'react';
 
-import { useDispatch } from 'react-redux';
-import { createTrip } from '../actions';
+import { useSelector, useDispatch } from 'react-redux';
+import { createTrip, addUser, initOwes } from '../actions';
 
 import Header from './Header';
 import { SafeAreaView, ScrollView, View, StyleSheet } from 'react-native';
@@ -30,7 +30,23 @@ const reducer = (state, action) => {
 const NewTrip = ({ navigation }) => {
   const storeDispatch = useDispatch();
   const [name, setName] = useState('');
+  const tripId = uuid();
   const [members, dispatch] = useReducer(reducer, []);
+
+  const onSave = () => {
+    let temp = [];
+    for (var i = 0; i < members.length; i++) {
+      let userId = uuid();
+      storeDispatch(addUser({ id: userId, name: members[i]}));
+      temp.push(userId);
+    }
+
+    for (var i = 0; i < temp.length; i++) {
+      storeDispatch(initOwes({ id: temp[i], members: temp }))
+    }
+
+    storeDispatch(createTrip({ id: tripId, name, members: temp }));
+  }
 
   return(
     <View style={{ height: '100%' }} onPress={() => textRef.blur()}>
@@ -71,7 +87,7 @@ const NewTrip = ({ navigation }) => {
         style={styles.save}
         disabled={name === '' || members.length < 1 || members.includes('') ? true : false}
         onPress={() => {
-          storeDispatch(createTrip({ id: uuid(), name, members}));
+          onSave();
           navigation.navigate('Home');
         }}
       />

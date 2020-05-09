@@ -14,13 +14,20 @@ const usersReducer = (state = initialState, action) => {
           [payload.id]: {
             id: payload.id,
             name: payload.name,
-            owes: payload.trip.members.filter(member => member !== payload.id).map(member => ({
-              [member]: 0
-            }))
+            owes: {}
           }
         },
         allIds: [...state.allIds, payload.id]
       }
+    case 'INIT_OWES':
+      var copy = state;
+      console.log('from reducer: ', payload);
+      for (var i = 0; i < payload.members.length; i++) {
+        if (payload.members[i] !== payload.id) {
+          copy.byId[payload.id].owes = Object.assign({ [payload.members[i]]: 0 }, copy.byId[payload.id].owes);
+        }
+      }
+      return copy;
     case 'ADD_EXPENSE':
       var copy = state;
       var split = payload.cost / (payload.users.length + 1);

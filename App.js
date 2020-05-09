@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import devToolsEnhancer from 'remote-redux-devtools';
 import rootReducer from './reducers';
 
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
@@ -13,7 +14,7 @@ import NewTrip from './components/NewTrip';
 import Trip from './components/Trip';
 
 const Stack = createStackNavigator();
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, devToolsEnhancer({ realtime: true }));
 
 const App = () => {
   return (

@@ -8,7 +8,6 @@ import data from '../test.json';
 
 const Home = ({ navigation }) => {
   const trips = useSelector(state => state.trips);
-  console.log(Object.keys(trips.byId))
 
   return(
     <View style={{height: '100%'}}>
@@ -17,7 +16,7 @@ const Home = ({ navigation }) => {
       <Divider />
       {trips.allIds !== [] ? (
         <List.Section>
-          {Object.keys(trips.byId).map((id, i) => (
+          {trips.allIds.map((id, i) => (
             <List.Item 
               key={i} 
               title={trips.byId[id].name} 
