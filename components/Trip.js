@@ -1,38 +1,38 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import initOwes from '../actions';
+import { useSelector } from 'react-redux';
 
 import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
-import { Divider, Title, List, Text } from 'react-native-paper';
+import { Divider, Title, List, Text, Button } from 'react-native-paper';
 import Header from './Header';
 
 const Trip = ({ route, navigation }) => {
-  console.log(route.params)
-  const dispatch = useDispatch();
+  const trips = useSelector(state => state.trips);
   const users = useSelector(state => state.users);
-  console.log(users.byId[route.params.members[0]].owes);
+  const expenses = useSelector(state => state.expenses);
+  const trip = trips.byId[route.params.id];
+
+  console.log(trip)
 
   return(
     <View>
-      <Header title={route.params.name} back nav={navigation} />
+      <Header title={trip.name} back nav={navigation} />
       <SafeAreaView>
-        <ScrollView style={{ height: '85%' }}>
+        <ScrollView style={{ height: '80%' }}>
           <Title style={styles.title}>Expenses</Title>
           <Divider />
           <List.Section>
-            {route.params.members.map((member, i) => {
+            {trip.members.map((member, i) => {
               return(
                 <List.Accordion title={users.byId[member].name} key={i}>
-                  {route.params.expenses
-                    .filter(exp => exp.payer === member)
+                  {users.byId[member].expenses
                     .map((exp, i) => {
                       return <List.Item
                         key={i}
                         style={styles.listItem}
-                        title={exp.name} 
+                        title={expenses.byId[exp].name} 
                         left={props => <List.Icon {...props} icon="subdirectory-arrow-right" />}
-                        right={() => <Text style={{ alignSelf: 'center', paddingRight: '10%' }}>${exp.cost}</Text>}
+                        right={() => <Text style={{ alignSelf: 'center', paddingRight: '10%' }}>${expenses.byId[exp].cost}</Text>}
                       />
                     })}
                 </List.Accordion>
@@ -43,10 +43,9 @@ const Trip = ({ route, navigation }) => {
           <Title style={styles.title}>Splits</Title>
           <Divider />
           <List.Section>
-            {route.params.members.map((member, i) => {
+            {trip.members.map((member, i) => {
               return(
                 <List.Accordion title={users.byId[member].name} key={i}>
-                  {console.log(Object.keys(users.byId[member].owes))}
                   {Object.keys(users.byId[member].owes)
                     .map((id, i) => {
                       return <List.Item
@@ -63,6 +62,15 @@ const Trip = ({ route, navigation }) => {
           </List.Section>
         </ScrollView>
       </SafeAreaView>
+      <Divider />
+      <Button
+        icon="cart-plus"
+        mode="contained"
+        style={styles.button}
+        onPress={() => navigation.navigate('New Expense', route.params )}
+      >
+        add expense
+      </Button>
     </View>
   );
 }
@@ -77,6 +85,9 @@ const styles = StyleSheet.create({
   listItem: {
     backgroundColor: 'lightgrey',
     display: 'flex'
+  },
+  button: {
+
   }
 });
 

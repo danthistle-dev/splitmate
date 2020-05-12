@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
               key={i} 
               title={trips.byId[id].name} 
               left={props => <List.Icon {...props} icon="airplane" />}
-              onPress={() => navigation.navigate('Trip', trips.byId[id])}
+              onPress={() => navigation.navigate('Trip', { id: id })}
             />))}
         </List.Section>         
       ) : (

@@ -14,6 +14,7 @@ const usersReducer = (state = initialState, action) => {
           [payload.id]: {
             id: payload.id,
             name: payload.name,
+            expenses: [],
             owes: {}
           }
         },
@@ -21,7 +22,6 @@ const usersReducer = (state = initialState, action) => {
       }
     case 'INIT_OWES':
       var copy = state;
-      console.log('from reducer: ', payload);
       for (var i = 0; i < payload.members.length; i++) {
         if (payload.members[i] !== payload.id) {
           copy.byId[payload.id].owes = Object.assign({ [payload.members[i]]: 0 }, copy.byId[payload.id].owes);
@@ -38,6 +38,7 @@ const usersReducer = (state = initialState, action) => {
           copy.byId[payload.users[i]].owes[payload.payer] += split;
         }
       }
+      copy.byId[payload.payer].expenses = [...copy.byId[payload.payer].expenses, payload.id];
       return copy;
     default:
       return state;

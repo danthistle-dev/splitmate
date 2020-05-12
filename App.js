@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import devToolsEnhancer from 'remote-redux-devtools';
 import rootReducer from './reducers';
 
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
@@ -12,9 +11,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './components/Home';
 import NewTrip from './components/NewTrip';
 import Trip from './components/Trip';
+import NewExpense from './components/NewExpense';
 
 const Stack = createStackNavigator();
-const store = createStore(rootReducer, devToolsEnhancer({ realtime: true }));
+const store = createStore(rootReducer);
 
 const App = () => {
   return (
@@ -34,6 +34,10 @@ const App = () => {
               name="Trip"
               component={Trip}
             />
+            <Stack.Screen 
+              name="New Expense"
+              component={NewExpense}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
@@ -45,7 +49,8 @@ const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#fe9798'
+    primary: '#fe9798',
+    background: 'white'
   }
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useReducer } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createTrip, addUser, initOwes } from '../actions';
 
 import Header from './Header';
