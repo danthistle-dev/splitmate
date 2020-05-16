@@ -16,7 +16,7 @@ const Trip = ({ route, navigation }) => {
 
   return(
     <View>
-      <Header title={trip.name} back nav={navigation} />
+      <Header title={trip.name} back edit={route.params.id} nav={navigation} />
       <SafeAreaView>
         <ScrollView style={{ height: '80%' }}>
           <Title style={styles.title}>Expenses</Title>
@@ -32,7 +32,13 @@ const Trip = ({ route, navigation }) => {
                         style={styles.listItem}
                         title={expenses.byId[exp].name} 
                         left={props => <List.Icon {...props} icon="subdirectory-arrow-right" />}
-                        right={() => <Text style={{ alignSelf: 'center', paddingRight: '10%' }}>${expenses.byId[exp].cost}</Text>}
+                        right={props => {
+                          return <>
+                            <Text style={{ alignSelf: 'center', paddingRight: '10%' }}>${expenses.byId[exp].cost}</Text>
+                            <List.Icon {...props} icon="circle-edit-outline" />
+                          </>
+                        }}
+                        onPress={() => navigation.navigate('Edit Expense', { id: exp })}
                       />
                     })}
                 </List.Accordion>

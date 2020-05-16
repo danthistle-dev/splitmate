@@ -32,7 +32,11 @@ const usersReducer = (state = initialState, action) => {
       var copy = state;
       var split = payload.cost / (payload.users.length + 1);
       for (var i = 0; i < payload.users.length; i++) {
-        if (state.byId[payload.payer].owes[payload.users[i]] >= split) {
+        if (state.byId[payload.payer].owes[payload.users[i]] > 0 && state.byId[payload.payer].owes[payload.users[i]] < split) {
+          var newSplit = split - state.byId[payload.payer].owes[payload.users[i]];
+          copy.byId[payload.payer].owes[payload.users[i]] = 0;
+          copy.byId[payload.users[i]].owes[payload.payer] += newSplit;
+        } else if (state.byId[payload.payer].owes[payload.users[i]] >= split) {
           copy.byId[payload.payer].owes[payload.users[i]] -= split;
         } else {
           copy.byId[payload.users[i]].owes[payload.payer] += split;

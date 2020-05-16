@@ -9,8 +9,6 @@ import uuid from 'random-uuid-v4';
 
 import Header from './Header';
 
-'use strict';
-
 const NewExpense = ({ navigation, route }) => {
   const tripId = route.params.id;
   const trips = useSelector(state => state.trips);
@@ -36,7 +34,7 @@ const NewExpense = ({ navigation, route }) => {
 
   return(
     <View style={{ height: '100%' }} onPress={() => textRef.blur()}>
-      <Header title="New expense" />
+      <Header title="New expense" back nav={navigation} />
       <SafeAreaView style={{ height: '60%' }}>
         <ScrollView>
           <TextInput 
@@ -81,7 +79,7 @@ const NewExpense = ({ navigation, route }) => {
         label="Save"
         icon="check"
         style={styles.save}
-        disabled={name === '' || cost === '' || checks.includes(true) ? false : true}
+        disabled={name === '' || cost === '' || !checks.includes(true)}
         onPress={() => {
           dispatch(addExpense({ 
             id: uuid(), 
@@ -91,7 +89,7 @@ const NewExpense = ({ navigation, route }) => {
             payer, 
             users: getUsers(trips.byId[tripId].members.filter(x => x !== payer), checks)
           }));
-          navigation.navigate('Trip', { id: tripId });
+          navigation.goBack();
         }}
       />
       <FAB 
@@ -99,6 +97,7 @@ const NewExpense = ({ navigation, route }) => {
         icon="close"
         style={styles.cancel}
         color="white"
+        onPress={() => navigation.goBack()}
       />
     </View>
   )

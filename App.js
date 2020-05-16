@@ -12,6 +12,8 @@ import Home from './components/Home';
 import NewTrip from './components/NewTrip';
 import Trip from './components/Trip';
 import NewExpense from './components/NewExpense';
+import EditTrip from './components/EditTrip';
+import EditExpense from './components/EditExpense';
 
 const Stack = createStackNavigator();
 const store = createStore(rootReducer);
@@ -35,8 +37,16 @@ const App = () => {
               component={Trip}
             />
             <Stack.Screen 
+              name="Edit Trip"
+              component={EditTrip}
+            />
+            <Stack.Screen 
               name="New Expense"
               component={NewExpense}
+            />
+            <Stack.Screen 
+              name="Edit Expense"
+              component={EditExpense}
             />
           </Stack.Navigator>
         </NavigationContainer>

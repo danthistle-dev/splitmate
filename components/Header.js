@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
 
-const Header = ({ title, back, nav }) => {
+const Header = ({ title, back, nav, edit }) => {
   let [fontsLoaded] = useFonts({
     'Lobster-Two-Regular': require('../assets/fonts/LobsterTwo-Regular.ttf'),
   });
@@ -14,11 +14,12 @@ const Header = ({ title, back, nav }) => {
   } else {
     return(
       <Appbar.Header style={styles.header}>
-        {back ? <Appbar.BackAction color="white" onPress={() => nav.navigate('Home')} /> : null}
+        {back ? <Appbar.BackAction color="white" onPress={() => nav.goBack()} /> : null}
         <Appbar.Content 
           title={title}
           titleStyle={styles.title}
         />
+        {edit ? <Appbar.Action color="white" icon="circle-edit-outline" onPress={() => nav.navigate('Edit Trip', edit)} /> : null}
       </Appbar.Header>
     );
   }

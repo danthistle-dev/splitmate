@@ -88,7 +88,7 @@ const NewTrip = ({ navigation }) => {
         disabled={name === '' || members.length < 1 || members.includes('') ? true : false}
         onPress={() => {
           onSave();
-          navigation.navigate('Home');
+          navigation.goBack();
         }}
       />
       <FAB 
@@ -96,7 +96,7 @@ const NewTrip = ({ navigation }) => {
         icon="close"
         style={styles.cancel}
         color="white"
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.goBack()}
       />
     </View>
   );
