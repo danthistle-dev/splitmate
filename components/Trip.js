@@ -12,8 +12,6 @@ const Trip = ({ route, navigation }) => {
   const expenses = useSelector(state => state.expenses);
   const trip = trips.byId[route.params.id];
 
-  console.log(trip)
-
   return(
     <View>
       <Header title={trip.name} back edit={route.params.id} nav={navigation} />
@@ -38,7 +36,7 @@ const Trip = ({ route, navigation }) => {
                             <List.Icon {...props} icon="circle-edit-outline" />
                           </>
                         }}
-                        onPress={() => navigation.navigate('Edit Expense', { id: exp })}
+                        onPress={() => navigation.navigate('Edit Expense', { id: exp, trip: route.params.id })}
                       />
                     })}
                 </List.Accordion>

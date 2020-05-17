@@ -31,6 +31,23 @@ const tripsReducer = (state = initialState, action) => {
           }
         }
       }
+    case 'EDIT_TRIP':
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [payload.id]: {
+            ...state.byId[payload.id],
+            name: payload.name
+          }
+        }
+      }
+    case 'REMOVE_TRIP':
+      var copy = state;
+      delete copy.byId[payload.id];
+      copy.allIds = copy.allIds.filter(x => x !== payload.id);
+      console.log('trips reducer', copy);
+      return copy;
     default:
       return state
   }
