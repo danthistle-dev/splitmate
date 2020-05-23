@@ -57,8 +57,8 @@ const TripSummary = ({ navigation, route }) => {
       <SafeAreaView style={{ height: '86%' }}>
         <ScrollView>
           <View style={styles.overview}>
-            <Text style={styles.subtext}>Your group spent a total of</Text>
-            <Title style={styles.info}>${totalCost(trips.byId[tripId].expenses)}</Title>
+            <Text style={styles.subtext}>On your trip {trips.byId[tripId].name}, your group spent a total of</Text>
+            <Title style={styles.info}>${totalCost(trips.byId[tripId].expenses).toFixed(2)}</Title>
             <Text style={styles.subtext}>split amongst</Text>
             <Title style={styles.info}>{trips.byId[tripId].expenses.length} expenses.</Title>
           </View>
@@ -71,8 +71,7 @@ const TripSummary = ({ navigation, route }) => {
             backgroundColor="transparent"
             paddingLeft="15"
             absolute
-          />
-        
+          />    
           <Title style={styles.title}>Splits</Title>
           <Divider />
           <List.Section>
@@ -86,7 +85,7 @@ const TripSummary = ({ navigation, route }) => {
                         style={styles.listItem}
                         title={`owes ${users.byId[id].name}`} 
                         left={props => <List.Icon {...props} icon="subdirectory-arrow-right" />}
-                        right={() => <Text style={{ alignSelf: 'center', paddingRight: '10%' }}>${users.byId[member].owes[id]}</Text>}
+                        right={() => <Text style={{ alignSelf: 'center', paddingRight: '10%' }}>${users.byId[member].owes[id].toFixed(2)}</Text>}
                       />
                   })}
                 </List.Accordion>

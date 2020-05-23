@@ -57,7 +57,7 @@ const Trip = ({ route, navigation }) => {
                         style={styles.listItem}
                         title={`owes ${users.byId[id].name}`} 
                         left={props => <List.Icon {...props} icon="subdirectory-arrow-right" />}
-                        right={() => <Text style={{ alignSelf: 'center', paddingRight: '10%' }}>${users.byId[member].owes[id]}</Text>}
+                        right={() => <Text style={{ alignSelf: 'center', paddingRight: '10%' }}>${users.byId[member].owes[id].toFixed(2)}</Text>}
                       />
                   })}
                 </List.Accordion>
