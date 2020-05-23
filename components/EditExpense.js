@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, StyleSheet, Text } from 'react-native';
-import { TextInput, FAB, Paragraph, Dialog, Portal } from 'react-native-paper';
-import { initOwes, editExpense, reAddExpense, removeExpense } from '../actions';
+import { TextInput, FAB, Paragraph, Dialog, Portal, Button } from 'react-native-paper';
+import { editExpense } from '../actions';
 import Header from './Header';
 
 const EditExpense = ({ navigation, route }) => {
   const expenseId = route.params.id;
+
   const tripId = route.params.trip;
   const expenses = useSelector(state => state.expenses);
-  const trips = useSelector(state => state.trips);
   const dispatch = useDispatch();
 
   const [name, setName] = useState(expenses.byId[expenseId].name);
@@ -51,16 +51,8 @@ const EditExpense = ({ navigation, route }) => {
           </Dialog.Content>
           <Dialog.Actions>
             <Button onPress={() => {
-              // dispatch(removeExpense({ id: expenseId, payer: expenses.byId[expenseId].payer }));
-              // for (var i = 0; i < trips.byId[tripId].members.length; i++) {
-              //   dispatch(initOwes({ members: trips.byId[tripId].members, id: trips.byId[tripId].members[i] }));
-              // }
-              // for (var i = 0; i < trips.byId[tripId].expenses.length - 1; i++) {
-              //   var tmpId = trips.byId[tripId].expenses[i];
-              //   if (tmpId !== expenseId) {
-              //     dispatch(reAddExpense({ cost: expenses.byId[tmpId].cost, payer: expenses.byId[tmpId].payer, users: expenses.byId[tmpId].users }))
-              //   }
-              // }
+              // Deleting expenses was causing too many issues with redux persist,
+              // I chose to omit this from the demo for my own sanity.
               setVisible(false);
               console.log('deleted');
               navigation.goBack();

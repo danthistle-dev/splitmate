@@ -1,10 +1,10 @@
-import React, { useState, StrictMode } from 'react';
+import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addExpense } from '../actions';
 
 import { SafeAreaView, ScrollView, View, StyleSheet, Picker } from 'react-native';
-import { TextInput, FAB, Text, List, Checkbox } from 'react-native-paper';
+import { TextInput, FAB, List, Checkbox, Text } from 'react-native-paper';
 import uuid from 'random-uuid-v4';
 
 import Header from './Header';

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { TextInput, FAB, Dialog, Portal, Paragraph, Button } from 'react-native-paper';
-import { editTrip, editUser, removeTrip } from '../actions';
+import { editTrip, editUser, toggleComplete } from '../actions';
 import Header from './Header';
 
 const EditTrip = ({ navigation, route }) => {
@@ -52,8 +52,8 @@ const EditTrip = ({ navigation, route }) => {
         }}
       />
       <FAB 
-        label="Delete"
-        icon="close"
+        label="conclude trip"
+        icon="check"
         style={styles.cancel}
         color="white"
         onPress={() => setVisible(true)}
@@ -62,15 +62,14 @@ const EditTrip = ({ navigation, route }) => {
         <Dialog visible={visible} onDismiss={() => setVisible(false)}>
           <Dialog.Title>Confirm action</Dialog.Title>
           <Dialog.Content>
-            <Paragraph>{`Are you sure you want to delete ${trips.byId[tripId].name}? This can't be undone.`}</Paragraph>
+            <Paragraph>{`Are you sure you want to conclude the trip?`}</Paragraph>
           </Dialog.Content>
           <Dialog.Actions>
             <Button onPress={() => {
-              //dispatch(removeTrip({ id: tripId, members: trips.byId[tripId].members, expenses: trips.byId[tripId].expenses }));
+              dispatch(toggleComplete({ id: tripId }));
               setVisible(false);
-              console.log('saved');
-              navigation.goBack();
-            }}>ok</Button>
+              navigation.navigate('Home');
+            }}>yes</Button>
             <Button onPress={() => setVisible(false)}>cancel</Button>
           </Dialog.Actions>
         </Dialog>
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
     left: 0
   },
   cancel: {
-    backgroundColor: 'crimson',
+    backgroundColor: 'darkcyan',
     position: 'absolute',
     margin: 20,
     bottom: 0,

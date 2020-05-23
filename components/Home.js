@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { List, Title, Divider, FAB, Text, Paragraph, Dialog, Portal, Button } from 'react-native-paper';
@@ -7,12 +7,7 @@ import Header from './Header';
 
 const Home = ({ navigation }) => {
   const trips = useSelector(state => state.trips);
-  const users = useSelector(state => state.users);
-  const expenses = useSelector(state => state.expenses);
-
   const [visible, setVisible] = useState(false);
-
-  console.log(visible);
 
   return(
     <View style={{height: '100%'}}>
@@ -24,9 +19,16 @@ const Home = ({ navigation }) => {
           {trips.allIds.map((id, i) => (
             <List.Item 
               key={i} 
-              title={trips.byId[id].name} 
+              title={trips.byId[id].name}
+              right={props => trips.byId[id].complete ? <List.Icon {...props} icon="check" color={'#10dac4'} /> : null}
               left={props => <List.Icon {...props} icon="airplane" />}
-              onPress={() => navigation.navigate('Trip', { id: id })}
+              onPress={() => {
+                if (trips.byId[id].complete) {
+                  navigation.navigate('Trip Summary', { id: id });
+                } else {
+                  navigation.navigate('Trip', { id: id });
+                }
+              }}
             />))}
         </List.Section>         
       ) : <Text>You don't have any trips yet! Add a trip to get started.</Text>}

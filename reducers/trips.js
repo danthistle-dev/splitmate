@@ -15,7 +15,8 @@ const tripsReducer = (state = initialState, action) => {
             id: payload.id,
             name: payload.name,
             members: payload.members,
-            expenses: []
+            expenses: [],
+            complete: false
           }
         },
         allIds: [...state.allIds, payload.id]
@@ -42,12 +43,17 @@ const tripsReducer = (state = initialState, action) => {
           }
         }
       }
-    case 'REMOVE_TRIP':
-      var copy = state;
-      delete copy.byId[payload.id];
-      copy.allIds = copy.allIds.filter(x => x !== payload.id);
-      console.log('trips reducer', copy);
-      return copy;
+    case 'TOGGLE_COMPLETE':
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [payload.id]: {
+            ...state.byId[payload.id],
+            complete: !state.byId[payload.id].complete
+          }
+        }
+      }
     default:
       return state
   }

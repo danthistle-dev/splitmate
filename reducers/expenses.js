@@ -22,18 +22,6 @@ const expensesReducer = (state = initialState, action) => {
         },
         allIds: [...state.allIds, payload.id]
       }
-    case 'REMOVE_TRIP':
-      var copy = state;
-      for (var i = 0; i < payload.expenses.length; i++) {
-        delete copy.byId[payload.expenses[i]];
-      }
-      copy.allIds = copy.allIds.filter(
-        function(e) {
-          return this.indexOf(e) < 0;
-        },
-        payload.expenses
-      )
-      return copy;
     case 'EDIT_EXPENSE':
       return {
         ...state,
@@ -45,11 +33,6 @@ const expensesReducer = (state = initialState, action) => {
           }
         }
       }
-    case 'REMOVE_EXPENSE':
-      var copy = state;
-      delete copy.byId[payload.id];
-      copy.allIds = copy.allIds.filter(x => x !== payload.id);
-      return copy;
     default:
       return state;
   }

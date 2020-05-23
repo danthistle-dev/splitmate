@@ -1,31 +1,30 @@
 import React from 'react';
-
+// Redux
 import { persistStore, persistReducer } from 'redux-persist';
 import { AsyncStorage } from 'react-native';
 import autoMergeLevel1 from 'redux-persist/lib/stateReconciler/autoMergeLevel1';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './reducers';
-
+import { PersistGate } from 'redux-persist/integration/react';
+// Styles and navigation
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+// Local components
 import Home from './components/Home';
 import NewTrip from './components/NewTrip';
 import Trip from './components/Trip';
 import NewExpense from './components/NewExpense';
 import EditTrip from './components/EditTrip';
 import EditExpense from './components/EditExpense';
-import { PersistGate } from 'redux-persist/integration/react';
+import TripSummary from './components/TripSummary';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   stateReconciler: autoMergeLevel1
 };
-
-// AsyncStorage.clear();
 
 const pReducer = persistReducer(persistConfig, rootReducer);
 
@@ -63,6 +62,10 @@ const App = () => {
               <Stack.Screen 
                 name="Edit Expense"
                 component={EditExpense}
+              />
+              <Stack.Screen 
+                name="Trip Summary"
+                component={TripSummary}
               />
             </Stack.Navigator>
           </NavigationContainer>

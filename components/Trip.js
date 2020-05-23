@@ -89,9 +89,6 @@ const styles = StyleSheet.create({
   listItem: {
     backgroundColor: 'lightgrey',
     display: 'flex'
-  },
-  button: {
-
   }
 });
 
